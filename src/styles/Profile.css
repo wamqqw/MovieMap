@@ -1,0 +1,138 @@
+.profile-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .profile-title {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .profile-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .profile-image-container {
+    margin-bottom: 20px;
+  }
+  
+  .profile-image {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  
+  .profile-image-upload-label {
+    display: block;
+    margin-top: 10px;
+    text-align: center;
+    cursor: pointer;
+    color: #007bff;
+  }
+  
+  .profile-image-upload {
+    display: none;
+  }
+  
+  .profile-form {
+    width: 100%;
+    max-width: 300px;
+  }
+  
+  .profile-input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .profile-button {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .profile-button:hover {
+    background-color: #0056b3;
+  }
+  
+  .logout-button {
+    margin-top: 20px;
+    background-color: #dc3545;
+  }
+  
+  .logout-button:hover {
+    background-color: #c82333;
+  }
+  
+  .profile-switch {
+    margin-top: 10px;
+    text-align: center;
+  }
+  
+  .profile-switch-link {
+    color: #007bff;
+    cursor: pointer;
+  }
+  
+  .rated-movies-section {
+    margin-top: 40px;
+    width: 100%;
+  }
+  
+  .rated-movies-title {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .rated-movies-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+  }
+  
+  .rated-movie-item {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: transform 0.2s;
+  }
+  
+  .rated-movie-item:hover {
+    transform: scale(1.05);
+  }
+  
+  .rated-movie-poster {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+  }
+  
+  .rated-movie-info {
+    padding: 10px;
+  }
+  
+  .rated-movie-title {
+    margin: 0 0 10px 0;
+    font-size: 1.1em;
+  }
+  
+  .rated-movie-rating {
+    margin: 5px 0;
+    font-weight: bold;
+  }
+  
+  .rated-movie-review {
+    margin: 5px 0;
+    font-size: 0.9em;
+    color: #666;
+  }

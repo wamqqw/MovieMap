@@ -1,0 +1,25 @@
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+button {
+    background-color: #2196F3;
+    color: #FFFFFF;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background-color 0.3s; /* Добавили плавный переход */
+  }
+  
+  button:hover {
+    background-color: #1976D2; /* Цвет при наведении */
+  }
+  

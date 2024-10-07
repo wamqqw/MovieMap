@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"name": "moviesBackend",
+			"path": "../../../../xampp/htdocs/moviesBackend"
+		},
+		{
+			"name": "movie-search-app",
+			"path": ".."
+		}
+	],
+	"settings": {}
+}

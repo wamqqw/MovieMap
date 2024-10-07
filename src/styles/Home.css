@@ -1,0 +1,63 @@
+.home-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    padding-bottom: 100px; /* Adjust this value as needed */
+}
+  
+  .hero-section {
+    height: 500px;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: flex-end;
+    margin-bottom: 40px;
+    border-radius: 10px;
+    overflow: hidden;
+    transition: background-image 0.5s ease-in-out;
+  }
+  
+  .hero-content {
+    background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 100%);
+    padding: 40px;
+    color: white;
+    width: 100%;
+  }
+  
+  .hero-content h1 {
+    font-size: 2.5em;
+    margin-bottom: 10px;
+  }
+  
+  .hero-content p {
+    font-size: 1em;
+    margin-bottom: 20px;
+  }
+  
+  .watch-now-btn {
+    background-color: #e50914;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .watch-now-btn:hover {
+    background-color: #f40612;
+  }
+  .movie-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+  }
+h2 {
+    font-size: 1.5em;
+    margin-bottom: 20px;
+    color: #333;
+}
+.home-container > div:not(:last-child) {
+    margin-bottom: 40px;
+}

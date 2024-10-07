@@ -1,0 +1,110 @@
+.favorites-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.favorites-title {
+  font-size: 2.5rem;
+  color: #333;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.no-favorites {
+  text-align: center;
+  font-size: 1.2rem;
+  color: #666;
+}
+
+.favorites-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 2rem;
+}
+
+.favorite-item {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.favorite-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.favorite-poster {
+  width: 100%;
+  height: 375px;
+  object-fit: cover;
+}
+
+.favorite-info {
+  padding: 1rem;
+}
+
+.favorite-title {
+  font-size: 1.2rem;
+  margin: 0 0 0.5rem 0;
+  color: #333;
+}
+
+.favorite-year {
+  font-size: 0.9rem;
+  color: #666;
+  margin-bottom: 0.5rem;
+}
+
+.favorite-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.view-details-btn,
+.remove-favorite-btn {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color 0.3s ease;
+}
+
+.view-details-btn {
+  background-color: #007bff;
+  color: white;
+  text-decoration: none;
+}
+
+.view-details-btn:hover {
+  background-color: #0056b3;
+}
+
+.remove-favorite-btn {
+  background-color: #dc3545;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.remove-favorite-btn:hover {
+  background-color: #c82333;
+}
+
+.loading,
+.error,
+.not-logged-in {
+  text-align: center;
+  font-size: 1.2rem;
+  color: #666;
+  margin-top: 3rem;
+}
+
+.error {
+  color: #dc3545;
+}
