@@ -24,12 +24,6 @@ function Header() {
               </Link>
             </li>
             <li>
-              <Link to="/Favorites">
-                Избранное
-                <span></span>
-              </Link>
-            </li>
-            <li>
               <Link to="/Profile">
                 Профиль
                 <span></span>

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import '../styles/MovieDetails.css';
-// Простой компонент аватара
+
 const Avatar = ({ username, className = '' }) => {
   const initials = username.charAt(0).toUpperCase();
   const backgroundColor = stringToColor(username);
@@ -28,7 +28,6 @@ const Avatar = ({ username, className = '' }) => {
   );
 };
 
-// Функция для генерации цвета на основе строки
 const stringToColor = (str) => {
   let hash = 0;
   for (let i = 0; i < str.length; i++) {
@@ -50,10 +49,12 @@ export default function MovieDetails() {
   const [averageRating, setAverageRating] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [isFavorite, setIsFavorite] = useState(false);
+  //const [isFavorite, setIsFavorite] = useState(false);
   const { id } = useParams();
   const apiKey = process.env.REACT_APP_TMDB_API_KEY;
   const userId = localStorage.getItem('userId');
+
+  const BASE_URL = 'http://172.16.216.185/moviesBackend';
 
   useEffect(() => {
     const fetchMovieDetails = async () => {
@@ -61,9 +62,9 @@ export default function MovieDetails() {
       try {
         const [movieResponse, reviewsResponse, userRatingResponse, averageRatingResponse] = await Promise.all([
           axios.get(`https://api.themoviedb.org/3/movie/${id}?api_key=${apiKey}&language=ru-RU`),
-          axios.get(`http://localhost/moviesBackend/get_reviews.php?movie_id=${id}`),
-          userId ? axios.get(`http://localhost/moviesBackend/get_user_rating.php?user_id=${userId}&movie_id=${id}`) : Promise.resolve({ data: { rating: 0 } }),
-          axios.get(`http://localhost/moviesBackend/get_average_rating.php?movie_id=${id}`)
+          axios.get(`${BASE_URL}/get_reviews.php?movie_id=${id}`),
+          userId ? axios.get(`${BASE_URL}/get_user_rating.php?user_id=${userId}&movie_id=${id}`) : Promise.resolve({ data: { rating: 0 } }),
+          axios.get(`${BASE_URL}/get_average_rating.php?movie_id=${id}`)
         ]);
         
         setMovie(movieResponse.data);
@@ -72,9 +73,8 @@ export default function MovieDetails() {
         setAverageRating(Number(averageRatingResponse.data.average_rating) || 0);
 
         await saveMovieToDatabase(movieResponse.data);
-        checkIfFavorite();
       } catch (error) {
-        console.error('Error fetching movie details:', error);
+        console.error('Ошибка при загрузке деталей фильма:', error);
         setError('Произошла ошибка при загрузке данных. Пожалуйста, попробуйте позже.');
       } finally {
         setIsLoading(false);
@@ -86,7 +86,7 @@ export default function MovieDetails() {
 
   const saveMovieToDatabase = async (movieData) => {
     try {
-      await axios.post('http://172.16.216.185/moviesBackend/save_movie.php', {
+      await axios.post(`${BASE_URL}/save_movie.php`, {
         id: movieData.id,
         title: movieData.title,
         overview: movieData.overview,
@@ -95,14 +95,26 @@ export default function MovieDetails() {
         vote_average: movieData.vote_average
       });
     } catch (error) {
-      console.error('Error saving movie to database:', error);
+      console.error('Ошибка при сохранении фильма в базе данных:', error);
     }
   };
 
-  const checkIfFavorite = () => {
-    const favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
-    setIsFavorite(favorites.some(fav => fav.id === parseInt(id)));
-  };
+  // const checkIfFavorite = async () => {
+  //   if (!userId) return;
+  //   try {
+  //     const response = await axios.post(`${BASE_URL}/check_favorite.php`, {
+  //       user_id: userId,
+  //       movie_id: id
+  //     });
+  //     if (response.data.status === 'success') {
+  //       setIsFavorite(response.data.exists);
+  //     } else {
+  //       console.error('Ошибка при проверке избранного:', response.data.message);
+  //     }
+  //   } catch (error) {
+  //     console.error('Ошибка при проверке избранного:', error);
+  //   }
+  // };
 
   const handleRatingChange = async (newRating) => {
     if (!userId) {
@@ -111,7 +123,7 @@ export default function MovieDetails() {
     }
 
     try {
-      const response = await axios.post('http://172.16.216.185/moviesBackend/add_rating.php', {
+      const response = await axios.post(`${BASE_URL}/add_rating.php`, {
         user_id: userId,
         movie_id: id,
         rating: newRating
@@ -119,7 +131,7 @@ export default function MovieDetails() {
 
       if (response.data.status === 'success') {
         setUserRating(newRating);
-        const averageRatingResponse = await axios.get(`http://172.16.216.185/moviesBackend/get_average_rating.php?movie_id=${id}`);
+        const averageRatingResponse = await axios.get(`${BASE_URL}/get_average_rating.php?movie_id=${id}`);
         setAverageRating(Number(averageRatingResponse.data.average_rating) || 0);
         alert('Ваша оценка успешно сохранена!');
       } else {
@@ -143,7 +155,7 @@ export default function MovieDetails() {
     }
 
     try {
-      const response = await axios.post('http://172.16.216.185/moviesBackend/add_review.php', {
+      const response = await axios.post(`${BASE_URL}/add_review.php`, {
         user_id: userId,
         movie_id: id,
         review_text: reviewText,
@@ -159,32 +171,6 @@ export default function MovieDetails() {
     } catch (error) {
       console.error('Ошибка при добавлении отзыва:', error);
       alert('Произошла ошибка при добавлении отзыва. Пожалуйста, попробуйте позже.');
-    }
-  };
-
-  const toggleFavorite = async () => {
-    if (!userId) {
-      alert('Войдите в аккаунт, чтобы добавить фильм в избранное.');
-      return;
-    }
-
-    try {
-      const action = isFavorite ? 'remove' : 'add';
-      const response = await axios.post(`http://172.16.216.185/moviesBackend/${action}_favorite.php`, {
-        user_id: userId,
-        movie_id: id
-      });
-
-      if (response.data.status === 'success') {
-        setIsFavorite(!isFavorite);
-        const message = isFavorite ? 'Фильм удален из избранного!' : 'Фильм успешно добавлен в избранное!';
-        alert(message);
-      } else {
-        throw new Error(response.data.message || 'Неизвестная ошибка при обновлении избранного');
-      }
-    } catch (error) {
-      console.error('Ошибка при обновлении избранного:', error);
-      alert('Произошла ошибка при обновлении избранного. Пожалуйста, попробуйте позже.');
     }
   };
 
@@ -222,9 +208,6 @@ export default function MovieDetails() {
               </span>
             ))}
           </div>
-          <button className="favorite-btn" onClick={toggleFavorite}>
-            {isFavorite ? 'Удалить из избранного' : 'Добавить в избранное'}
-          </button>
         </div>
       </div>
 

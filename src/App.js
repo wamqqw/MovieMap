@@ -3,7 +3,6 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Header from './components/Header';
 import Home from './pages/Home';
 import Search from './pages/Search';
-import Favorites from './pages/Favorites';
 import Profile from './pages/Profile';
 import MovieDetails from './components/MovieDetails';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
@@ -34,7 +33,6 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/search" element={<Search />} />
-            <Route path="/favorites" element={<Favorites />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/movie/:id" element={<MovieDetails />} />
             <Route path="/tv/:id" element={<MovieDetails />} />
